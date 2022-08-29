@@ -1,0 +1,21 @@
+<mat-toolbar class="title-toolbar">
+    <a href="/#/"><span style="color:white">&lt;odesi&gt;</span>
+        <img class="img" src="../../assets/img/logo.png" alt="odesi logo">
+    </a>
+    <div class="title-center">
+    <button  mat-button (click)="goToDataverse()">
+        Browse
+    </button>
+    <button  mat-button (click)="goToContact()">
+        Contact
+    </button>
+    <button  mat-button (click)="goToMyList()">
+        My List
+    </button>
+    </div>
+    <span class="fill-space"></span>
+    <select matNativeControl title="Language" #langSelect (change)="translate.use(langSelect.value)">
+          <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{lang}}</option>
+    </select>
+
+</mat-toolbar>

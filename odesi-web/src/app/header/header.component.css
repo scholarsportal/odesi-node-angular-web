@@ -1,0 +1,24 @@
+.title-toolbar {
+    background: black;
+    color: white;
+
+}
+
+.title-center {
+    text-align: center;
+    color: white;
+}
+
+.img {
+    height:50px
+}
+
+
+.fill-space {
+    flex: 1 1 auto;
+}
+
+.mat-form-field.lang-select {
+    font-size: 0.6em;
+    width: 7em;
+}

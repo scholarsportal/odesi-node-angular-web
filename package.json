@@ -1,0 +1,27 @@
+{
+  "name": "odesi-node-angular-web",
+  "version": "1.0.0",
+  "description": "Odesi search website with angualar and nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scholarsportal/odesi-node-angular-web.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/scholarsportal/odesi-node-angular-web/issues"
+  },
+  "homepage": "https://github.com/scholarsportal/odesi-node-angular-web#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}

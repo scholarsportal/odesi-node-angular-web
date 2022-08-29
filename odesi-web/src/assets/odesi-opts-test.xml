@@ -1,0 +1,206 @@
+<options xmlns="http://marklogic.com/appservices/search">
+    <term>
+        <empty apply="all-results"/>
+        <term-option>case-insensitive</term-option>
+        <term-option>diacritic-insensitive</term-option>
+        <term-option>punctuation-insensitive</term-option>
+        <term-option>wildcarded</term-option>
+    </term>
+    <searchable-expression>/codeBook</searchable-expression>
+    <return-results>true</return-results>
+    <return-facets>true</return-facets>
+    <debug>true</debug>
+    <grammar>
+        <quotation>"</quotation>
+        <starter strength="30" apply="grouping" delimiter=")">(</starter>
+        <starter strength="40" apply="prefix" element="cts:not-query">~~</starter>
+        <joiner strength="10" apply="infix" element="cts:or-query" tokenize="word">OR</joiner>
+        <joiner strength="20" apply="infix" element="cts:and-query" tokenize="word">AND</joiner>
+        <joiner strength="30" apply="infix" element="cts:near-query" tokenize="word">NEAR</joiner>
+        <joiner strength="50" apply="constraint">:</joiner>
+        <joiner strength="50" apply="constraint" compare="LT" tokenize="word">LT</joiner>
+        <joiner strength="50" apply="constraint" compare="LE" tokenize="word">LE</joiner>
+        <joiner strength="50" apply="constraint" compare="GT" tokenize="word">GT</joiner>
+        <joiner strength="50" apply="constraint" compare="GE" tokenize="word">GE</joiner>
+        <joiner strength="50" apply="constraint" compare="NE" tokenize="word">NE</joiner>
+    </grammar>
+    <constraint name="topcClas">
+        <range type="xs:string" facet="true" collation="http://marklogic.com/collation/">
+            <element ns="" name="topcClas"/>
+            <facet-option>frequency-order</facet-option>
+            <facet-option>limit=20</facet-option>
+        </range>
+    </constraint>
+    <constraint name="keyword">
+        <range type="xs:string" facet="true" collation="http://marklogic.com/collation/">
+            <element ns="" name="keyword"/>
+            <facet-option>frequency-order</facet-option>
+            <facet-option>limit=20</facet-option>
+        </range>
+    </constraint>
+    <constraint name="SE-facet">
+        <range type="xs:string" facet="true" collation="http://marklogic.com/collation/">
+            <element ns="" name="serName"/>
+            <facet-option>frequency-order</facet-option>
+            <facet-option>limit=20</facet-option>
+        </range>
+    </constraint>
+    <constraint name="GE-facet">
+        <range type="xs:string" facet="true" collation="http://marklogic.com/collation/">
+            <element ns="" name="geogCover"/>
+            <facet-option>frequency-order</facet-option>
+            <facet-option>limit=20</facet-option>
+        </range>
+    </constraint>
+    <constraint name="FQ-facet">
+        <range type="xs:string" facet="true" collation="http://marklogic.com/collation/">
+            <element ns="" name="frequenc"/>
+            <facet-option>frequency-order</facet-option>
+            <facet-option>limit=20</facet-option>
+        </range>
+    </constraint>
+    <constraint name="LA-facet">
+        <range type="xs:string" facet="true" collation="http://marklogic.com/collation/">
+            <element ns="http://scholarsportal.info/surveyInfo" name="slang"/>
+            <facet-option>frequency-order</facet-option>
+            <facet-option>limit=2</facet-option>
+        </range>
+    </constraint>
+    <constraint name="TI-facet">
+        <range type="xs:string" facet="false" collation="http://marklogic.com/collation//S1">
+            <path-index>stdyDscr/citation/titlStmt/titl</path-index>
+        </range>
+    </constraint>
+    <constraint name="AuthEnty">
+        <range type="xs:string" facet="false" collation="http://marklogic.com/collation//S1">
+            <path-index>stdyDscr/citation/rspStmt/AuthEnty</path-index>
+        </range>
+    </constraint>
+    <constraint name="affiliation">
+        <range type="xs:string" facet="false" collation="http://marklogic.com/collation//S1">
+            <path-index>stdyDscr/citation/rspStmt/AuthEnty/@affiliation</path-index>
+        </range>
+    </constraint>
+    <constraint name="producer">
+        <range type="xs:string" facet="false" collation="http://marklogic.com/collation//S1">
+            <path-index>stdyDscr/citation/prodStmt/producer</path-index>
+        </range>
+    </constraint>
+    <constraint name="prodDate">
+        <range type="xs:string" facet="false" collation="http://marklogic.com/collation//S1">
+            <path-index>stdyDscr/citation/prodStmt/prodDate</path-index>
+        </range>
+    </constraint>
+    <constraint name="date">
+        <range type="xs:gYear" facet="false">
+            <element ns="http://scholarsportal.info/surveyInfo" name="syear"/>
+        </range>
+    </constraint>
+    <constraint name="KW">
+        <word>
+            <element ns="" name="keyword"/>
+            <term-option>case-insensitive</term-option>
+        </word>
+    </constraint>
+    <constraint name="AB">
+        <word>
+            <element ns="" name="abstract"/>
+            <term-option>case-insensitive</term-option>
+        </word>
+    </constraint>
+    <constraint name="SE">
+        <word>
+            <element ns="" name="serName"/>
+            <term-option>case-insensitive</term-option>
+        </word>
+    </constraint>
+    <!--
+    <constraint name="TI">
+      <word>
+        <element ns="" name="titl"/>
+        <term-option>case-insensitive</term-option>
+      </word>
+    </constraint>
+    Made title into element query so parallel title matches show in results
+    -->
+    <constraint name="TI">
+        <element-query name="titlStmt" ns="" />
+    </constraint>
+    <constraint name="VL">
+        <word>
+            <field name="variable"/>
+            <term-option>case-insensitive</term-option>
+        </word>
+    </constraint>
+    <constraint name="coll">
+        <collection prefix="http://scholarsportal.info/" facet="false"/>
+    </constraint>
+    <constraint name="attr">
+        <range type="xs:string" facet="false" collation="http://marklogic.com/collation/en/S1">
+            <element ns="" name="var"/>
+            <attribute ns="" name="name" />
+        </range>
+    </constraint>
+    <operator name="sort">
+        <state name="rel">
+            <sort-order direction="descending">
+                <score/>
+            </sort-order>
+        </state>
+        <state name="date">
+            <sort-order type="xs:gYear" direction="descending">
+                <element ns="http://scholarsportal.info/surveyInfo" name="syear"/>
+            </sort-order>
+        </state>
+    </operator>
+    <!-- result snippet configurations -->
+    <transform-results apply="snippet">
+        <max-matches>5</max-matches>
+        <max-snippet-chars>200</max-snippet-chars>
+        <preferred-elements>
+            <element ns="" name="abstract"/>
+            <element ns="" name="keyword"/>
+            <element ns="" name="stdyDscr"/>
+        </preferred-elements>
+    </transform-results>
+    <!-- extra element content to be sent for each result -->
+    <!--
+    <extract-document-data selected="include">
+      <extract-path>
+        /stdyDscr/citation/rspStmt/AuthEnty
+      </extract-path>
+    </extract-document-data>
+  -->
+
+    <extract-metadata>
+        <qname elem-name="abstract"/>
+        <!-- <qname elem-name="biblCit"/> -->
+        <constraint-value ref="AuthEnty"/>
+        <constraint-value ref="affiliation"/>
+        <qname elem-name="prodPlac"/>
+        <constraint-value ref="producer"/>
+        <constraint-value ref="prodDate"/>
+        <qname elem-name="keyword"/>
+        <qname elem-name="accsPlac" attr-name="URI"/>
+        <constraint-value ref="SE-facet"/>
+        <constraint-value ref="date"/>
+        <constraint-value ref="TI-facet"/>
+    </extract-metadata>
+
+    <!-- for listing all values for browse -->
+    <values name="keyword">
+        <range type="xs:string">
+            <element ns="" name="keyword"/>
+        </range>
+    </values>
+    <values name="title">
+        <range type="xs:string">
+            <element ns="" name="titl"/>
+        </range>
+    </values>
+    <values name="series">
+        <range type="xs:string">
+            <element ns="" name="serName"/>
+        </range>
+    </values>
+</options>
