@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import ConfigJson from '../../assets/config.json';
 import { OdesiService } from '../odesi.service';
+import {AppRoutingModule} from "../app-routing.module";
 
 @Component({
   selector: 'app-header',
@@ -34,7 +35,22 @@ export class HeaderComponent implements OnInit {
 
   goToDataverse() {
     console.log("go to dataverse")
+    // this.odesiService.getTopicClassifications('')
+    //     //"(AB=test)AND(coll:cora)&options=odesi-opts2&format=json")
+    //     .subscribe(
+    //         data => {
+    //           console.log('Data ');
+    //           console.log(data);
+    //         },
+    //         error => {
+    //           console.log(error);
+    //         },
+    //         () => {
+    //           console.log("complete")
+    //
+    //         });
 
+    //window.open('/classifications', '_blank');
 
     //window.open(ConfigJson.baseUrl + "/dataverse/odesi", "_blank");
   }

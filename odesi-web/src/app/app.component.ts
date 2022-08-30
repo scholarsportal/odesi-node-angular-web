@@ -18,6 +18,7 @@ export class AppComponent {
             data => {
               console.log('Data ');
               console.log(data);
+              console.log(JSON.stringify(data));
             },
             error => {
               console.log(error);
@@ -25,18 +26,6 @@ export class AppComponent {
             () => {
               console.log("complete")
             });
-    this.odesiService.getTopicClassifications('')
-        //"(AB=test)AND(coll:cora)&options=odesi-opts2&format=json")
-        .subscribe(
-            data => {
-                console.log('Data ');
-                console.log(data);
-            },
-            error => {
-                console.log(error);
-            },
-            () => {
-                console.log("complete")
-            });
+
   }
 }
