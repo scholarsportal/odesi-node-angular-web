@@ -51,3 +51,17 @@ app.get('/api/search', function (req, res) {
     });
 });
 
+app.get('/api/findDatasets', function (req, res) {
+    console.log(req)
+    //var reqURL = BASE_URL+'/v1/values/topcClas?options=odesi-opts2&format=json'; //+ req.query.requestURL;
+    var reqURL = BASE_URL+'/v1/search/?q=topcClas:' +   req.query.requestURL + "&options=odesi-opts2&format=json"
+    console.log(reqURL)
+    request({url : reqURL, json : true, 'auth': { 'user': 'demo', 'pass': 'demo', 'sendImmediately': false } }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body);
+        }else {
+            res.sendStatus(response.statusCode);
+        }
+    });
+});
+

@@ -26,4 +26,14 @@ export class OdesiService {
         //return $i
     }
 
+    find(url:string) {
+        const httpOptions = {
+            params: {requestURL: encodeURI(url)}}
+        return this.http.get("/api/search" )
+
+
+        //for $i in cts:element-values(xs:QName("topcClas") , "*")
+        //return $i
+    }
+
 }
