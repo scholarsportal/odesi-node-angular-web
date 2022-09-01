@@ -19,7 +19,7 @@ export class OdesiService {
     getTopicClassifications(url:string) {
         const httpOptions = {
             params: {requestURL: encodeURI(url)}}
-        return this.http.get("/api/search" )
+        return this.http.get("/api/search", httpOptions )
 
 
         //for $i in cts:element-values(xs:QName("topcClas") , "*")
@@ -27,9 +27,10 @@ export class OdesiService {
     }
 
     find(url:string) {
+        console.log(url)
         const httpOptions = {
             params: {requestURL: encodeURI(url)}}
-        return this.http.get("/api/search" )
+        return this.http.get("/api/findDatasets", httpOptions )
 
 
         //for $i in cts:element-values(xs:QName("topcClas") , "*")

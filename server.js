@@ -38,8 +38,7 @@ app.get("/api/status", function (req, res) {
 
 //route used for all search requests, and browse requests (except for browse by category)
 app.get('/api/search', function (req, res) {
-    console.log(req)
-    var reqURL = BASE_URL+'/v1/values/topcClas?options=odesi-opts2&format=json'; //+ req.query.requestURL;
+    var reqURL = BASE_URL+'/v1/values/topcClas?' + req.query.requestURL; //+ req.query.requestURL;
     //var reqURL = BASE_URL+'/v1/search/?q=' +  '*&options=odesi-opts-test&collection=http://scholarsportal.info/cora&format=json';
     console.log(reqURL)
     request({url : reqURL, json : true, 'auth': { 'user': 'demo', 'pass': 'demo', 'sendImmediately': false } }, function (error, response, body) {
@@ -53,8 +52,9 @@ app.get('/api/search', function (req, res) {
 
 app.get('/api/findDatasets', function (req, res) {
     console.log(req)
+    console.log(res)
     //var reqURL = BASE_URL+'/v1/values/topcClas?options=odesi-opts2&format=json'; //+ req.query.requestURL;
-    var reqURL = BASE_URL+'/v1/search/?q=topcClas:' +   req.query.requestURL + "&options=odesi-opts2&format=json"
+    var reqURL = BASE_URL+'/v1/search/?q=' +   req.query.requestURL;
     console.log(reqURL)
     request({url : reqURL, json : true, 'auth': { 'user': 'demo', 'pass': 'demo', 'sendImmediately': false } }, function (error, response, body) {
         if (!error && response.statusCode == 200) {

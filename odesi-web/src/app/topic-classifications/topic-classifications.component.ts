@@ -7,6 +7,8 @@ import {OdesiService} from "../odesi.service";
 interface Topic {
     name: string;
     children?: Topic[];
+    loaded: boolean;
+    levelNode: number;
 }
 
 let TOPIC_TREE: Topic[] = [
@@ -41,7 +43,8 @@ interface ExampleFlatNode {
 export class TopicClassificationsComponent implements OnInit {
     private _transformer = (node: Topic, level: number) => {
         return {
-            expandable: !!node.children && node.children.length > 0,
+            //expandable: !!node.children && node.children.length > 0,
+            expandable: node.levelNode === 1,
             name: node.name,
             level: level,
         };
@@ -69,8 +72,9 @@ export class TopicClassificationsComponent implements OnInit {
     hasChild = (_: number,
                 node: ExampleFlatNode) => node.expandable;
 
+
     ngOnInit(): void {
-        this.odesiService.getTopicClassifications('')
+        this.odesiService.getTopicClassifications('&options=odesi-opts2&format=json&directory=/odesi') //collection=http://scholarsportal.info/cora')
             //"(AB=test)AND(coll:cora)&options=odesi-opts2&format=json")
             .subscribe(
                 data => {
@@ -93,7 +97,10 @@ export class TopicClassificationsComponent implements OnInit {
 
                         let obj = {
                             "name": val["_value"],
-                            "children": [{"name" : "test", "children" :[]}]
+                            //"children": [{"name": "test", "children":[], "loaded":true}],
+                            "children":[],
+                            "loaded": false,
+                            "levelNode": 1
                         }
                         TOPIC_TREE.push(obj)
                     }
@@ -107,5 +114,50 @@ export class TopicClassificationsComponent implements OnInit {
                   console.log("complete")
 
                 });
+    }
+
+    findDatasets(topClas: string, loaded: string) {
+        console.log(loaded)
+        console.log(topClas, loaded)
+        if (!loaded) {
+            this.odesiService.find("topcClas:" + topClas + "&options=odesi-opts2&format=json").subscribe(
+                data => {
+                    console.log(data)
+                    let topicFoundIndex = TOPIC_TREE.findIndex(x => x.name === topClas)
+                    console.log(topicFoundIndex)
+                    let resultJson = JSON.parse(JSON.stringify(data));
+                    let datasetsArray = resultJson["results"]
+                    if (typeof (topicFoundIndex) !== 'undefined') {
+                        console.log("Show results");
+                        console.log(datasetsArray);
+                        var children = [];
+                        for (var el of datasetsArray) {
+                            var child: Topic = {
+                                "name": el["uri"],
+                                "children": [],
+                                "loaded": true,
+                                "levelNode": 0
+                            }
+
+                            children.push(child)
+                        }
+                        TOPIC_TREE[topicFoundIndex]["children"] = children
+                        console.log(TOPIC_TREE[topicFoundIndex])
+
+                    }
+
+
+                },
+                error => {
+                    console.log(error);
+                },
+                () => {
+                    console.log("complete")
+                    this.dataSource.data = TOPIC_TREE;
+                    this.dataSource.data = this.dataSource.data.slice();
+
+                });
+        }
+
     }
 }
