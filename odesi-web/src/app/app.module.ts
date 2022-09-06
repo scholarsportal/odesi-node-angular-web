@@ -15,6 +15,7 @@ import { TopicClassificationsComponent } from './topic-classifications/topic-cla
 import {MatTreeModule} from "@angular/material/tree";
 import {MatIconModule} from "@angular/material/icon";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {TreeModule} from "@circlon/angular-tree-component";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -30,25 +31,26 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     HeaderComponent,
     TopicClassificationsComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    MatTreeModule,
-    MatIconModule,
-    MatProgressBarModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        MatTreeModule,
+        MatIconModule,
+        MatProgressBarModule,
+        TreeModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
